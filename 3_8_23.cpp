@@ -45,3 +45,38 @@ class Solution {
         return dis;
     }
 };
+
+
+
+// Leet Code 
+
+// Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+
+// A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+class Solution {
+public:
+    void function(const vector<string>& dictionary, const string& digits,vector<string>& ans, string temp, int index) {        
+        if (index == digits.size()) {
+            ans.push_back(temp);
+            return;
+        }
+
+        int d = digits[index] - '2';
+        const string& letters = dictionary[d];
+
+        for (auto& c : letters) {
+            function(dictionary, digits, ans, temp + c, index + 1);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        const vector<string> dictionary = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        vector<string> ans;
+        string temp;
+        if(digits.empty()){
+            return ans;
+        }
+        function(dictionary, digits, ans, temp, 0);
+        return ans;
+    }
+};
